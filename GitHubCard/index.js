@@ -3,6 +3,13 @@
            https://api.github.com/users/<your name>
 */
 
+const axiosPromise =
+  // Make a request for a user with a given ID
+  axios.get("https://api.github.com/users/rbhouck32").then(function(response) {
+    // handle success
+    console.log(response);
+  });
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,6 +52,39 @@ const followersArray = [];
 </div>
 
 */
+const componentCreator = object => {
+  // creates the card div
+  const divCard = document.createElement("div");
+  // creates img element child of "card" div
+  const userImage = document.createElement("img");
+  // creates card-info div
+  const divCardInfo = document.createElement("div");
+  // creates h3 child of "card-info" for username
+  const nameH3 = document.createElement("h3");
+  // creates paragraph child of "card-info" div
+  const userNamePara = document.createElement("p");
+  // creates paragraph child of "card-info" div
+  const locationPara = document.createElement("p");
+  // creates paragraph child of "card-info" div
+  const profilePara = document.createElement("p");
+  // creates paragraph child of "card-info" div
+  const followersPara = document.createElement("p");
+  // creates paragraph child of "card-info" div
+  const followingPara = document.createElement("p");
+  // creates paragraph child of "card-info" div
+  const bioPara = document.createElement("p");
+
+  // Add class names to created elements
+
+  // adds class name to divCard
+  divCard.classList.add("card");
+  // adds class name to divCardInfo
+  divCardInfo.classList.add("card-info");
+  // add class name to h3
+  nameH3.classList.add("name");
+  // add class name to userJNamePara
+  userNamePara.classList.add("username");
+};
 
 /* List of LS Instructors Github username's: 
   tetondan
