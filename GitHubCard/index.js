@@ -5,10 +5,14 @@
 
 const axiosPromise =
   // Make a request for a user with a given ID
-  axios.get("https://api.github.com/users/rbhouck32").then(function(response) {
-    // handle success
-    console.log(response);
-  });
+  axios
+    .get("https://api.github.com/users/rbhouck32")
+    .then(function(response) {
+      // handle success
+      componentCreator(response.data);
+    })
+
+    .catch(error => console.log("Error:", error));
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -52,7 +56,7 @@ const followersArray = [];
 </div>
 
 */
-const componentCreator = object => {
+const componentCreator = user => {
   // creates the card div
   const divCard = document.createElement("div");
   // creates img element child of "card" div
@@ -74,6 +78,14 @@ const componentCreator = object => {
   // creates paragraph child of "card-info" div
   const bioPara = document.createElement("p");
 
+  //add elements to the divCard
+  divCard.appendChild(userImage);
+  divCard.appendChild(divCardInfo);
+  // add elements to the divCardInfo
+  divCardInfo.appendChild(nameH3);
+  divCardInfo.appendChild(userNamePara);
+  divCardInfo.appendChild(locationPara);
+
   // Add class names to created elements
 
   // adds class name to divCard
@@ -84,6 +96,10 @@ const componentCreator = object => {
   nameH3.classList.add("name");
   // add class name to userJNamePara
   userNamePara.classList.add("username");
+
+  // content additions
+
+  return divCard;
 };
 
 /* List of LS Instructors Github username's: 
@@ -93,3 +109,30 @@ const componentCreator = object => {
   luishrd
   bigknell
 */
+
+// const data = {
+//   food: {title: 'sometitle', date: '1-22-2020'}
+//   tools: {title: 'sometitle', date: '1-22-2020'}
+//   airplanes: {title: 'sometitle', date: '1-22-2020'}
+// }
+
+// Object.entries() // [[food, {}], [tools, {}], [airplanes, {}]]
+// Object.keys() // [food, tools, airplanes]
+// Object.values() //[{}, {}, {}]
+
+// Object.values(response.data.articles).forEach(article => {
+//   componentCreator(article)
+// })
+
+// response.data.article = {
+//   bootstrap: {
+//     article1: {}
+//     article2: {}
+//     article3: {}
+//   }
+//   javascript: {}
+//   css: {}
+
+// }
+
+// [bootstrap: {}, javascript: {}]
