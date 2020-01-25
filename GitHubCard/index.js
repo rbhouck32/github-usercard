@@ -5,14 +5,16 @@
 
 const axiosPromise =
   // Make a request for a user with a given ID
-  axios
-    .get("https://api.github.com/users/rbhouck32")
-    .then(function(response) {
-      // handle success
-      componentCreator(response.data);
-    })
+  axios.get("https://api.github.com/users/rbhouck32");
 
-    .catch(error => console.log("Error:", error));
+axiosPromise
+  .then(function(response) {
+    // handle success
+    console.log(response.data);
+    componentCreator(response.data);
+  })
+
+  .catch(error => console.log("Error:", error));
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -71,6 +73,8 @@ const componentCreator = user => {
   const locationPara = document.createElement("p");
   // creates paragraph child of "card-info" div
   const profilePara = document.createElement("p");
+  // creates anchor tag child of PROFILE paragraph
+  const link = document.createElement("a");
   // creates paragraph child of "card-info" div
   const followersPara = document.createElement("p");
   // creates paragraph child of "card-info" div
@@ -85,9 +89,13 @@ const componentCreator = user => {
   divCardInfo.appendChild(nameH3);
   divCardInfo.appendChild(userNamePara);
   divCardInfo.appendChild(locationPara);
+  divCardInfo.appendChild(profilePara);
+  profilePara.appendChild(link);
+  divCardInfo.appendChild(followersPara);
+  divCardInfo.appendChild(followingPara);
+  divCardInfo.appendChild(bioPara);
 
   // Add class names to created elements
-
   // adds class name to divCard
   divCard.classList.add("card");
   // adds class name to divCardInfo
@@ -98,9 +106,32 @@ const componentCreator = user => {
   userNamePara.classList.add("username");
 
   // content additions
+  userImage.src = user.avatar_url;
+  nameH3.textContent = user.name;
+  userNamePara.textContent = user.login;
+  locationPara.textContent = "Location: " + user.location;
+  link.setAttribute("href", user.html_url); /* camelCase? */
+  link.textContent = user.htmlUrl; /* camelCase? */
+  followersPara.textContent =
+    "Followers: " + user.followers_url; /* camelCase? */
+  followingPara.textContent =
+    "Following: " + user.following_url; /* camelCase? */
+  bioPara.textContent = "Bio: " + user.bio;
 
   return divCard;
 };
+
+const entrypoint = document.querySelector(".cards");
+
+axiosPromise.then(response => {
+  // show with console where to find data w/ axios response
+  console.log(response);
+  let data = response.data;
+  // iterate over data and create a newDog component
+  data.forEach(user => {
+    const newCard = componentCreator(user);
+  });
+});
 
 /* List of LS Instructors Github username's: 
   tetondan
